@@ -1,10 +1,7 @@
 {
     "compilerOptions": {
         "allowJs": true,
-        "skipLibCheck": true,
+        "skipDefaultLibCheck": true,
         "module": "ESNext"
-    },
-    "include": [
-        "javascript/"
-    ]
+    }
 }

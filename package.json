@@ -1,5 +1,6 @@
 {
   "name": "@wirunekaewjai/jetpack",
-  "version": "0.1.5",
-  "type": "module"
+  "version": "0.1.6",
+  "type": "module",
+  "module": "./index.mjs"
 }
