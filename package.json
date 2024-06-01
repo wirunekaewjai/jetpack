@@ -1,11 +1,8 @@
 {
   "name": "@wirunekaewjai/jetpack",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "type": "module",
   "exports": {
-    "./hx-get": {
-      "default": "./javascript/hx-get/index.js",
-      "types": "./javascript/hx-get/types.d.ts"
-    }
+    "./*.mjs": "./javascript/*.mjs"
   }
 }
