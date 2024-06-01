@@ -1,0 +1,8 @@
+{
+  "name": "@wirunekaewjai/jetpack",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    "./hx-get": "./javascript/hx-get.js"
+  }
+}
