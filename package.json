@@ -1,5 +1,16 @@
 {
   "name": "@wirunekaewjai/jetpack",
-  "version": "0.1.8",
-  "type": "module"
+  "version": "0.1.9",
+  "type": "module",
+  "exports": {
+    ".": [
+      "./typescript/hx-get.ts"
+    ]
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
 }

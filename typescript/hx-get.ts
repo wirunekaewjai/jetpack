@@ -1,40 +1,25 @@
-/**
- * @typedef {(pathname: string, query: URLSearchParams) => Promise<string | null | undefined> | string | null | undefined} Callback
- */
+export type Callback = (pathname: string, query: URLSearchParams) => Promise<string | null | undefined> | string | null | undefined;
 
-/**
- * @param {Callback} callback 
- */
-export function hxGet(callback) {
+export function hxGet(callback: Callback) {
   const OriginalXMLHttpRequest = window.XMLHttpRequest;
 
   class InterceptedXMLHttpRequest extends OriginalXMLHttpRequest {
-    /** @type {Record<string, string>} */
-    headers = {};
+    headers: Record<string, string> = {};
+    url: string | URL | undefined;
 
-    /** @type {string | URL | undefined} */
-    url;
-
-    /**
-     * @param {string} name 
-     * @param {string} value 
-     */
-    setRequestHeader(name, value) {
+    setRequestHeader(name: string, value: string) {
       this.headers[name] = value;
       super.setRequestHeader(name, value);
     }
 
-    /**
-     * @param {string} method
-     * @param {string | URL} url
-     * @param {...any} args 
-     */
-    open(method, url, ...args) {
-      this.url = url;
-      super.open(method, url, ...args);
+    open(method: string, url: string | URL): void;
+    open(method: string, url: string | URL, async: boolean, username?: string | null, password?: string | null): void;
+    open(...args: [string, string | URL]): void {
+      this.url = args[1];
+      super.open(...args);
     }
 
-    async send(body) {
+    async send(body: Document | XMLHttpRequestBodyInit | null | undefined) {
       const isHxRequest = this.headers["HX-Request"];
 
       if (!isHxRequest || !this.url) {
@@ -57,10 +42,19 @@ export function hxGet(callback) {
         "statusText",
       ].forEach((name) => Object.defineProperty(this, name, { writable: true }));
 
+      // @ts-ignore
       this.response = this.responseText = response;
+
+      // @ts-ignore
       this.responseURL = url.href;
+
+      // @ts-ignore
       this.readyState = XMLHttpRequest.DONE;
+
+      // @ts-ignore
       this.status = 200;
+
+      // @ts-ignore
       this.statusText = "OK";
 
       this.onload?.(new ProgressEvent(""));
