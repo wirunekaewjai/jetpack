@@ -1,8 +1,5 @@
 {
   "name": "@wirunekaewjai/jetpack",
-  "version": "0.1.4",
-  "type": "module",
-  "exports": {
-    "./*.mjs": "./javascript/*.mjs"
-  }
+  "version": "0.1.5",
+  "type": "module"
 }
