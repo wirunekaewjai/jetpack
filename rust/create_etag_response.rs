@@ -6,7 +6,7 @@ use mime::Mime;
 
 use super::{create_etag, is_not_modified};
 
-pub fn create_etag_response(req: &HttpRequest, mime: Mime, buffer: Vec<u8>) -> HttpResponse {
+pub fn create_etag_response(req: &HttpRequest, mime: &Mime, buffer: Vec<u8>) -> HttpResponse {
     let etag = create_etag(&buffer);
     let headers = req.headers();
     let mut builder = match is_not_modified(&headers, &etag) {
@@ -20,7 +20,7 @@ pub fn create_etag_response(req: &HttpRequest, mime: Mime, buffer: Vec<u8>) -> H
             CacheDirective::MaxAge(0),
             CacheDirective::MustRevalidate,
         ]))
-        .insert_header((CONTENT_TYPE, mime))
+        .insert_header((CONTENT_TYPE, mime.clone()))
         .insert_header((ETAG, etag))
         .body(buffer);
 }
