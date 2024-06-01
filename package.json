@@ -1,11 +1,23 @@
 {
   "name": "@wirunekaewjai/jetpack",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "type": "module",
   "exports": {
     ".": [
       "./typescript/hx-get.ts"
-    ]
+    ],
+    "./jsx": {
+      "default": "./typescript/jsx/types.ts",
+      "types": "./typescript/jsx/types.ts"
+    },
+    "./jsx/jsx-dev-runtime": {
+      "default": "./typescript/jsx/jsx-dev-runtime.ts",
+      "types": "./typescript/jsx/jsx-dev-runtime.ts"
+    },
+    "./jsx/jsx-runtime": {
+      "default": "./typescript/jsx/jsx-runtime.ts",
+      "types": "./typescript/jsx/jsx-runtime.ts"
+    }
   },
   "devDependencies": {
     "@types/bun": "latest"
