@@ -1,5 +1,5 @@
 /**
- * @param {(pathname: string, query: URLSearchParams) => Promise<string | null | undefined> | string | null | undefined} callback 
+ * @param {import('./types').Callback} callback 
  */
 export function hxGet(callback) {
   const OriginalXMLHttpRequest = window.XMLHttpRequest;
