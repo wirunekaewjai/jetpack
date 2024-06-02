@@ -1,13 +1,9 @@
-export function hxResponse(ev: CustomEvent, response: {
+export function hxResponse(xhr: XMLHttpRequest, response: {
   body: string;
   status?: number;
   statusText?: string;
   url: string;
 }) {
-  ev.preventDefault();
-
-  const xhr = ev.detail.xhr as XMLHttpRequest;
-
   [
     "response",
     "responseText",
@@ -52,7 +48,7 @@ const onHtmxBeforeRequest = (e: CustomEvent) => {
     const name = query.get("name") ?? hxVals.name;
     const value = Number(query.get("value") ?? hxVals.value);
 
-    hxResponse(e, {
+    hxResponse(e.detail.xhr, {
       body: counter(name, value),
       url: conf.path,
     });
