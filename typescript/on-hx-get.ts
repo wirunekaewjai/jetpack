@@ -1,6 +1,7 @@
 import type { Unsubscribe } from "./types/unsubscribe";
 
-export type Callback = (pathname: string, query: URLSearchParams) => Promise<string | null | undefined> | string | null | undefined;
+export type CallbackValue = string[] | string | null | undefined;
+export type Callback = (pathname: string, query: URLSearchParams) => Promise<CallbackValue> | CallbackValue;
 
 class HxGetInterceptor {
   callbacks: Callback[];
@@ -38,8 +39,9 @@ class HxGetInterceptor {
 
         for (const callback of parent.callbacks) {
           const response = await callback(url.pathname, url.searchParams);
+          const html = Array.isArray(response) ? response.join("") : response;
 
-          if (typeof response === "string") {
+          if (typeof html === "string") {
             [
               "response",
               "responseText",
@@ -50,7 +52,7 @@ class HxGetInterceptor {
             ].forEach((name) => Object.defineProperty(this, name, { writable: true }));
 
             // @ts-ignore
-            this.response = this.responseText = response;
+            this.response = this.responseText = html;
 
             // @ts-ignore
             this.responseURL = url.href;
