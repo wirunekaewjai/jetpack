@@ -1,10 +1,10 @@
 {
   "name": "@wirunekaewjai/jetpack",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "type": "module",
   "exports": {
     ".": [
-      "./typescript/on-hx-get.ts"
+      "./typescript/hx-response.ts"
     ],
     "./types": [
       "./typescript/types/unsubscribe.ts"
