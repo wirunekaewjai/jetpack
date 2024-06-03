@@ -1,12 +1,18 @@
-export function hxQuery(search: string | URLSearchParams, hxVals?: Record<string, string | number | boolean>) {
-  const params = new URLSearchParams(search);
-  const get = (key: string) => params.get(key) ?? hxVals?.[key];
+export function hxQuery<T>(search: string | URLSearchParams, hxVals?: Record<string, string | number | boolean>) {
+  const query: Record<string, string | number | boolean> = { ...hxVals };
 
-  return {
-    getBoolean: (key: string) => Boolean(get(key)),
-    getNumber: (key: string) => Number(get(key)),
-    getString: (key: string) => String(get(key)),
-  };
+  new URLSearchParams(search).forEach((value, key) => {
+    const boo = value.toUpperCase();
+
+    if (boo === "TRUE" || boo === "FALSE") {
+      query[key] = (boo === "TRUE");
+    } else {
+      const num = Number(value);
+      query[key] = (Number.isNaN(num) ? value : num);
+    }
+  });
+
+  return query as T;
 }
 
 export function hxResponse(xhr: XMLHttpRequest, response: {
