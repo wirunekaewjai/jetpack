@@ -1,16 +1,9 @@
 {
   "name": "@wirunekaewjai/jetpack",
-  "version": "0.1.20",
+  "version": "0.1.21",
   "type": "module",
   "exports": {
-    "./htmx": [
-      "./typescript/htmx/hx-query.ts",
-      "./typescript/htmx/hx-response.ts"
-    ],
-
-    "./types": [
-      "./typescript/types/unsubscribe.ts"
-    ],
+    ".": "./typescript/index.ts",
 
     "./jsx": {
       "default": "./typescript/jsx/types.ts",

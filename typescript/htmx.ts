@@ -1,3 +1,14 @@
+export function hxQuery(search: string | URLSearchParams, hxVals?: Record<string, string | number | boolean>) {
+  const params = new URLSearchParams(search);
+  const get = (key: string) => params.get(key) ?? hxVals?.[key];
+
+  return {
+    getBoolean: (key: string) => Boolean(get(key)),
+    getNumber: (key: string) => Number(get(key)),
+    getString: (key: string) => String(get(key)),
+  };
+}
+
 export function hxResponse(xhr: XMLHttpRequest, response: {
   body: string;
   status?: number;
@@ -31,32 +42,3 @@ export function hxResponse(xhr: XMLHttpRequest, response: {
   //
   xhr.onload?.(new ProgressEvent(""));
 }
-
-/* Example
-const onHtmxBeforeRequest = (e: CustomEvent) => {
-  const conf = e.detail.requestConfig as {
-    path: string;
-    parameters: Record<string, any>;
-  };
-
-  const [pathname, search] = conf.path.split("?");
-
-  if (pathname === "/@count") {
-    const query = hxQuery(search, conf.parameters);
-
-    const name = query.getString("name");
-    const value = query.getNumber("value"); 
-
-    hxResponse(e.detail.xhr, {
-      body: counter(name, value),
-      url: conf.path,
-    });
-
-    return;
-  }
-};
-
-htmx.on("htmx:beforeRequest", (e) => {
-  return onHtmxBeforeRequest(e as CustomEvent);
-});
- */
