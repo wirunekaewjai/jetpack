@@ -1,5 +1,3 @@
-import { hxQuery } from "./hx-query";
-
 export function hxResponse(xhr: XMLHttpRequest, response: {
   body: string;
   status?: number;
