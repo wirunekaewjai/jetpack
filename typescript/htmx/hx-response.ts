@@ -1,3 +1,5 @@
+import { hxQuery } from "./hx-query";
+
 export function hxResponse(xhr: XMLHttpRequest, response: {
   body: string;
   status?: number;
@@ -42,11 +44,10 @@ const onHtmxBeforeRequest = (e: CustomEvent) => {
   const [pathname, search] = conf.path.split("?");
 
   if (pathname === "/@count") {
-    const hxVals = conf.parameters;
-    const query = new URLSearchParams(search);
+    const query = hxQuery(search, conf.parameters);
 
-    const name = query.get("name") ?? hxVals.name;
-    const value = Number(query.get("value") ?? hxVals.value);
+    const name = query.getString("name");
+    const value = query.getNumber("value"); 
 
     hxResponse(e.detail.xhr, {
       body: counter(name, value),
