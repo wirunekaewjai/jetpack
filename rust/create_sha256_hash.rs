@@ -1,6 +1,6 @@
 use sha2::{Digest, Sha256};
 
-pub fn create_hash(bytes: &[u8]) -> String {
+pub fn create_sha256_hash(bytes: &[u8]) -> String {
     let mut hasher = Sha256::new();
 
     hasher.update(bytes);
